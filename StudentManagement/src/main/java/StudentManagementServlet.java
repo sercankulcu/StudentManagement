@@ -50,7 +50,6 @@ public class StudentManagementServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        System.out.println(action + "dopost");
         try {
             switch (action) {
                 case "signUp":
@@ -103,9 +102,6 @@ public class StudentManagementServlet extends HttpServlet {
     private void signUp(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
-        System.out.println(username + " " + password);
-
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement ps = connection.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)");) {
@@ -117,7 +113,6 @@ public class StudentManagementServlet extends HttpServlet {
             System.out.println("sign up successful");
 
         } catch (Exception e) {
-        	System.out.println("sign up failed" + e.getMessage());
             response.sendRedirect("index.jsp?error=Sign up failed");
         }
     }
@@ -126,8 +121,6 @@ public class StudentManagementServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        System.out.println(username + " " + password);
-
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");) {
 
